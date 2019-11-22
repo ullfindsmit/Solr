@@ -1,6 +1,8 @@
 ﻿Imports CommonServiceLocator
 Imports SolrNet
+Imports SolrNet.Commands.Parameters
 Imports SolrNet.Impl
+Imports SolrNet.Mapping
 
 Public Class _Default
     Inherits System.Web.UI.Page
@@ -8,7 +10,23 @@ Public Class _Default
     Dim _PageAddressBook As List(Of MyAddressBookEntry)
     Public Function PageAddressBook() As List(Of MyAddressBookEntry)
         If _PageAddressBook Is Nothing Then
+            _PageAddressBook = New List(Of MyAddressBookEntry)
 
+
+            Try
+                SolrNet.Startup.Init(Of MyAddressBookEntry)(SolrABURL)
+                SolrNet.Startup.Init(Of SolrNet.ISolrReadOnlyOperations(Of MyAddressBookEntry))(SolrABURL)
+            Catch ex As Exception
+                litError.Text = ex.Message
+            End Try
+
+            Dim solr As ISolrReadOnlyOperations(Of MyAddressBookEntry) = ServiceLocator.Current.GetInstance(Of ISolrReadOnlyOperations(Of MyAddressBookEntry))()
+            Dim qo As New QueryOptions
+            qo.Rows = 10000
+            Dim result = solr.Query("*", qo)
+            For Each oAddr In result
+                _PageAddressBook.Add(oAddr)
+            Next
         End If
 
         Return _PageAddressBook
@@ -54,16 +72,26 @@ Public Class _Default
 
     Private Sub btnSave_Click(sender As Object, e As EventArgs) Handles btnSave.Click
         Dim nA As New MyAddressBookEntry
+        nA.id = Guid.NewGuid.ToString
         nA.FirstName = txtFirstName.Text
         nA.LastName = txtLastName.Text
         nA.Phone = txtPhone.Text
         nA.Email = txtEmail.Text
 
-        'Dim oSolr As New SolrConnection(SolrABURL)
+        Try
+            SolrNet.Startup.Init(Of MyAddressBookEntry)(SolrABURL)
+            SolrNet.Startup.Init(Of SolrNet.ISolrOperations(Of MyAddressBookEntry))(SolrABURL)
+        Catch ex As Exception
+            litError.Text = ex.Message
+        End Try
 
+        'Dim mapper As New AllPropertiesMappingManager()
+        'mapper.SetUniqueKey(GetType(MyAddressBookEntry).GetProperty("id"))
 
         Dim solr As ISolrOperations(Of MyAddressBookEntry) = ServiceLocator.Current.GetInstance(Of ISolrOperations(Of MyAddressBookEntry))()
         Dim addResult = solr.Add(nA)
+        solr.Commit()
+
         If addResult.Status <> 0 Then
             litError.Text = addResult.ToString
         End If

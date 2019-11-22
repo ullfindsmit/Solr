@@ -24,11 +24,29 @@
 						</tr>
 					</thead>
 					<tbody>
+						<% For Each oAddr In PageAddressBook %>
 						<tr>
 							<td>
-								TBD
+								<strong>
+									<%=oAddr.FirstName %>
+									<%=oAddr.LastName %>
+								</strong>
+								<br />
+								
+								<strong>
+									Ph:
+								</strong> 
+								<%=oAddr.Phone %>
+								<br />
+								
+								<strong>
+									Email:
+								</strong>
+								<%=oAddr.Email %>
+
 							</td>
 						</tr>
+						<% Next %>
 					</tbody>
 				</table>
 			</div>

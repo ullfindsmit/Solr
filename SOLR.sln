@@ -5,6 +5,8 @@ VisualStudioVersion = 16.0.29503.13
 MinimumVisualStudioVersion = 10.0.40219.1
 Project("{F184B08F-C81C-45F6-A57F-5ABD9991F28F}") = "SolrASPNetCRUD", "SolrASPNetCRUD\SolrASPNetCRUD.vbproj", "{366DB647-60FB-417F-9FB9-6495C4D934D2}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "SolrConsoleCSharp", "SolrConsoleCSharp\SolrConsoleCSharp.csproj", "{8FECBBC7-C9AB-4BFA-BAB7-4487B9770250}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -15,6 +17,10 @@ Global
 		{366DB647-60FB-417F-9FB9-6495C4D934D2}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{366DB647-60FB-417F-9FB9-6495C4D934D2}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{366DB647-60FB-417F-9FB9-6495C4D934D2}.Release|Any CPU.Build.0 = Release|Any CPU
+		{8FECBBC7-C9AB-4BFA-BAB7-4487B9770250}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{8FECBBC7-C9AB-4BFA-BAB7-4487B9770250}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{8FECBBC7-C9AB-4BFA-BAB7-4487B9770250}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{8FECBBC7-C9AB-4BFA-BAB7-4487B9770250}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
